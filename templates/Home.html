@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/style2.css">
+    <title>Disease Prediction</title>
+</head>
+<body>
+<div class="header">
+    <h1>Disease Prediction Model</h1>
+</div>
+<div class="main">
+    <form class="form-design" method="post" action="#">
+        <div class="select-group">
+            <label class="select-label"><span>Symptoms No-1</span></label><br>
+            <select class="select-grp" name="Symptom_1" required="1">
+                {% for symp in Symptom_1 %}
+                <option value="{{ symp }}">{{ symp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="select-group">
+            <label class="select-label"><span>Symptoms No-2</span></label><br>
+            <select class="select-grp" name="Symptom_2" required="1">
+                {% for symp in Symptom_2 %}
+                <option value="{{ symp }}">{{ symp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="select-group">
+            <label class="select-label"><span>Symptoms No-3</span></label><br>
+            <select class="select-grp" name="Symptom_3" required="1">
+                {% for symp in Symptom_3 %}
+                <option value="{{ symp }}">{{ symp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="select-group">
+            <label class="select-label"><span>Symptoms No-4</span></label><br>
+            <select class="select-grp" name="Symptom_4" required="1">
+                {% for symp in Symptom_4 %}
+                <option value="{{ symp }}">{{ symp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="select-group">
+            <label class="select-label"><span>Symptoms No-5</span></label><br>
+            <select class="select-grp" name="Symptom_5" required="1">
+                {% for symp in Symptom_5 %}
+                <option value="{{ symp }}">{{ symp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="select-group">
+            <label class="select-label"><span>Symptoms No-6</span></label><br>
+            <select class="select-grp" name="Symptom_6" required="1">
+                {% for symp in Symptom_6 %}
+                <option value="{{ symp }}">{{ symp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br>
+        <div>
+            <input class="submit-btn" type="submit" value="Predict" onclick="send_data()">
+        </div>
+    </form>
+</div>
+
+<div class="row">
+        <div class="result-grp" style="text-align: center;">
+            <h3><span id="prediction"></span></h3>
+        </div>
+    </div>
+
+    <script>
+
+        function form_handler(event) {
+            event.preventDefault(); // Don't submit the form normally
+        }
+        function send_data()
+        {
+            document.querySelector('form').addEventListener("submit",form_handler);
+
+            var fd=new FormData(document.querySelector('form'));
+
+            var xhr= new XMLHttpRequest({mozSystem: true});
+
+            xhr.open('POST','/predict',true);
+            document.getElementById('prediction').innerHTML="Wait! Predicting .....";
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == XMLHttpRequest.DONE){
+                    document.getElementById('prediction').innerHTML="The Disease is:"+xhr.responseText;
+
+                }
+            };
+
+            xhr.onload= function(){};
+
+            xhr.send(fd);
+        }
+    </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+crossorigin="anonymous"></script>
+</body>
+</html>
